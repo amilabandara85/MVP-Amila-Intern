@@ -1,0 +1,136 @@
+﻿/* --- In Stores.css --- */
+.stores-container {
+    padding: 20px;
+}
+
+.new-store-btn {
+    /* Blue background from the image */
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    margin-bottom: 10px;
+    margin-left: -400px;
+    margin-top: -10px;
+    cursor: pointer;
+}
+
+.home-btn {
+    /* Blue background from the image */
+    background-color: #08fc96;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    margin-bottom: 10px;
+    cursor: pointer;
+}
+
+.stores-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+    .stores-table th,
+    .stores-table td {
+        border: 1px solid #ddd;
+        padding: 12px;
+        text-align: left;
+    }
+
+    .stores-table th {
+        background-color: #f2f2f2;
+    }
+
+.edit-btn {
+    /* Yellow background from the image */
+   
+    background-color: #ffc107;
+    color: white;
+    border: none;
+    padding: 4px 8px;
+    cursor: pointer;
+}
+
+.delete-btn {
+    /* Red background from the image */
+    background-color: #dc3545;
+    color: white;
+    border: none;
+    padding: 4px 8px;
+    cursor: pointer;
+}
+
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent black overlay */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000; /* Ensure modal is on top of other content */
+}
+
+.modal-content {
+  background-color: white;
+  padding: 30px;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  width: 90%;
+  max-width: 500px; /* Adjust as needed */
+}
+
+.modal-content h2 {
+  font-size: 1.5rem;
+  margin-bottom: 20px;
+  color: #333;
+}
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: bold;
+  color: #555;
+  text-transform: uppercase; /* As seen in the image */
+  font-size: 0.8em;
+}
+
+.form-group input {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 1em;
+}
+
+.modal-actions {
+  display: flex;
+  justify-content: flex-end; /* Align buttons to the right */
+  gap: 10px; /* Space between buttons */
+  margin-top: 30px;
+}
+
+.cancel-btn, .create-btn {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: bold;
+  font-size: 1em;
+}
+
+.cancel-btn {
+  background-color: #6c757d; /* Gray for cancel */
+  color: white;
+}
+
+.create-btn {
+  background-color: #28a745; /* Green for create */
+  color: white;
+}
