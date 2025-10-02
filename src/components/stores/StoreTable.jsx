@@ -24,11 +24,11 @@ export class StoreTable extends Component {
             loading: true,
 
             showAddModal: false,
-            showEditModal: false,
-            showDeleteModal: false,
-            
 
+            showEditModal: false,
             storeToEdit: null,
+
+            showDeleteModal: false,       
             storeToDeleteId: null
          };
    
@@ -113,17 +113,18 @@ export class StoreTable extends Component {
                 <br></br>
 
                
-              {/*} <AddStore
+              <AddStore
                 show={this.state.showAddModal}
                 onClose={this.closeAddModal}
                 onAdd={this.handleAddStore}
-                />*/}
+                />
                 
                 <EditStore
                     show={this.state.showEditModal}
                     onClose={this.closeEditModal}
                     onUpdate={this.handleUpdateStore}
                     storeToEdit={this.state.storeToEdit}
+                    
                     />
 
                 <DeleteStore
@@ -140,31 +141,46 @@ export class StoreTable extends Component {
 
     }
 
+
+    //add
     handleAddStore = async (newStoreData) => {
     await fetch('stores', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(newStoreData),
+        
     });
+
+    alert('Store added');
     this.closeAddModal();
     this.populateStoresData();
 };
 
-handleUpdateStore = async (id, updatedStoreData) => {
-    await fetch(`stores/${id}`, {
-        method: 'PUT',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(updatedStoreData),
-    });
-    this.closeEditModal();
-    this.populateStoresData();
-};
 
+//edit
+    handleUpdateStore = async (id, updatedStoreData) => {
+
+        await fetch(`stores/${id}`, {
+            method: 'PUT',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(updatedStoreData),
+        });
+
+        alert('Store update Successfully!');
+        this.closeEditModal();
+        this.populateStoresData();
+    };
+
+    
+
+
+//Delete 
 handleConfirmDelete = async () => {
-    const { storeToDeleteId } = this.state;
+    const {storeToDeleteId } = this.state;
     await fetch(`stores/${storeToDeleteId}`, {
         method: 'DELETE',
     });
+    alert('Store Deleted!');
     this.closeDeleteModal();
     this.populateStoresData();
 };

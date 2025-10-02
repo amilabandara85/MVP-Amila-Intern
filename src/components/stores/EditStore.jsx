@@ -1,70 +1,63 @@
-import React, { useState } from "react";
+import React, { Component, useEffect, useState } from 'react';
 import './store.css';
 
-function EditStore({ show, onClose }) {
- 
-    const [storeName, setStoreName] = useState('');
-    const [storeAddress, setStoreAddress] = useState('');
+export function EditStore ({show, onClose, onUpdate, storeToEdit}) {
+  
+    const [name, setName] = useState('');
+    const [address, setAddress] = useState('');
+
+    useEffect(() => {
+        if (storeToEdit) {
+            setName(storeToEdit.name);
+            setAddress(storeToEdit.address);
+        }
+
+    }, [storeToEdit]);
 
     if (!show) {
         return null;
     }
 
-    const handleSubmit = (event) => {
-      
+    const handleSubmit = (event) =>{
         event.preventDefault();
-
-       
-        alert(`Hello, ${storeName} ${storeAddress}!`);
-
-
-        setStoreName('');
-        setStoreAddress('');
-
-       
-        onClose();
+        onUpdate(storeToEdit.id, {name, address});
     };
 
-    return (
-        <div className="modal-backdrop">
-            <div className="modal-content">
-                <h2>Edit Your Details</h2>
-                
-
-                <form onSubmit={handleSubmit}>
-                    <div className="form-group">
-                        <label htmlFor="storename">Name</label>
-                        <input
-                            type="text"
-                            id="storename"
-                            placeholder="Enter your Store Name"
-                            value={storeName} 
-                            onChange={(e) => setStoreName(e.target.value)}
-                        />
-                    </div>
-
-                    <div className="form-group">
-                        <label htmlFor="storeaddress">Address</label>
-                        <input
-                            type="text"
-                            id="storeaddress"
-                            placeholder="Enter your Store Address"
-                            value={storeAddress}
-                            onChange={(e) => setStoreAddress(e.target.value)}
-                        />
-                    </div>
-
-                    <div className="modal-actions">
-                        <button type="button" className="btn-cancel" onClick={onClose}>
-                            Cancel
-                        </button>
-                        <button type="submit" className="btn-submit">
-                            Submit
-                        </button>
-                    </div>
-                </form>
-            </div>
-        </div>
+    return(
+    <div className="modal-overlay">
+      <div className="modal-content">
+        <h2>Create store</h2>
+        <form onSubmit={handleSubmit}>
+          <div className="form-group">
+            <label htmlFor="name">NAME</label>
+            <input
+              type="text"
+              id="name"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+            />
+          </div>
+          <div className="form-group">
+            <label htmlFor="address">ADDRESS</label>
+            <input
+              type="text"
+              id="address"
+              value={address}
+              onChange={(e) => setAddress(e.target.value)}
+              
+            />
+          </div>
+          <div className="modal-actions">
+            <button type="button" className="cancel-btn" onClick={onClose}>
+              cancel
+            </button>
+            <button type="submit" className="create-btn" >
+              Edit
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
     );
 }
 
