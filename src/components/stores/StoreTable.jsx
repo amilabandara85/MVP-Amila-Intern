@@ -1,34 +1,58 @@
 import { Component } from 'react';
+import React, {useState} from 'react';  
 import { Collapse, Navbar, NavbarToggler, NavItem, NavLink } from 'reactstrap';
 import { Link } from 'react-router-dom';
 import './store.css';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { NavMenu } from '../navmenu/NavMenu';
+
+import DeleteStore from './DeleteStore';
+import EditStore from './EditStore';
 import AddStore from './AddStore';
 
  
 
 export class StoreTable extends Component {
 
+    
     static dispalyName = StoreTable.name;
 
     constructor(props) {
         super(props);
-        this.state = { stores: [], loading: true };
-        this.addStores = this.addStores.bind(this);
+        this.state = { 
+            stores: [], 
+            loading: true,
+
+            showAddModal: false,
+            showEditModal: false,
+            showDeleteModal: false,
+            
+
+            storeToEdit: null,
+            storeToDeleteId: null
+         };
+   
     }
 
     componentDidMount() {
         this.populateStoresData();
     }
 
-    static renderStoresTable(stores) {
+   openAddModal = () => this.setState({ showAddModal: true });
+   closeAddModal = () => this.setState({ showAddModal: false});
+
+   openEditModal = (store) => this.setState({ showEditModal: true, storeToEdit:store });
+   closeEditModal = () => this.setState({ showEditModal: false, storeToEdit: null});
+
+   openDeleteModal = (id) => this.setState({ showDeleteModal: true, storeToDeleteId:id });
+   closeDeleteModal = () => this.setState({ showDeleteModal: false, storeToDeleteId: null});
+
+   
+    renderStoresTable(stores) {
         return (
-      
-            
             
             <div className="stores-container">
-            <table className="stores-table table table-striped" aria-aria-labelledby="tableLabel">
+            <table className="stores-table table table-striped" aria-labelledby="tableLabel">
                 <thead>
                     <tr>
                         <th>Id</th>
@@ -47,12 +71,11 @@ export class StoreTable extends Component {
                             <td>{store.address}</td>
 
 
-                            <td><button onClick={this.openModal} className="edit-btn ">Edit</button></td>
-                                
-                           
-                            
-                                <td><button onClick={this.deletestores}className="delete-btn ">Delete</button></td>
-                         
+                            <td><button className="edit-btn " onClick={() => this.openEditModal(store)}>Edit</button></td>
+                                                         
+                            <td><button className="delete-btn " onClick={() => this.openDeleteModal(store.id)}>Delete</button></td>
+
+                                                     
                         </tr>
                     )}
                 </tbody>
@@ -69,83 +92,83 @@ export class StoreTable extends Component {
     render() {
         let contents = this.state.loading
             ? <p><em>Loading...</em></p>
-            : StoreTable.renderStoresTable(this.state.stores);
+            : this.renderStoresTable(this.state.stores);
+
 
         return (
             <div>
-
+ 
                 <br></br>
                  <br></br>
-              
+                
                 <h2 id="tableLablel" className="text-lg sm:text-xl lg:text-2xl font-bold text-white-600">Stores</h2>
                 
                 <br></br>
-                <button onClick={this.addStores} className="new-store-btn ">Add Store</button>
-                 
+                <button onClick={this.openAddModal} className="new-store-btn ">Add Store</button>
+                <br></br>
                 
-                
+      
                 {contents}
                 <br></br>
                 <br></br>
 
-        
+               
+              {/*} <AddStore
+                show={this.state.showAddModal}
+                onClose={this.closeAddModal}
+                onAdd={this.handleAddStore}
+                />*/}
+                
+                <EditStore
+                    show={this.state.showEditModal}
+                    onClose={this.closeEditModal}
+                    onUpdate={this.handleUpdateStore}
+                    storeToEdit={this.state.storeToEdit}
+                    />
+
+                <DeleteStore
+                    show={this.state.showDeleteModal}
+                    onClose={this.closeDeleteModal}
+                    onConfirm={this.handleConfirmDelete}
+
+                    />
+
+                
             </div>
             
         );
 
     }
 
-    //Add data 
-    async addStores() {
+    handleAddStore = async (newStoreData) => {
+    await fetch('stores', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(newStoreData),
+    });
+    this.closeAddModal();
+    this.populateStoresData();
+};
 
-    
+handleUpdateStore = async (id, updatedStoreData) => {
+    await fetch(`stores/${id}`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(updatedStoreData),
+    });
+    this.closeEditModal();
+    this.populateStoresData();
+};
 
-        const data = await fetch(
-            'stores', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-                id: 0,
-                name: 'Countdown',
-                address: 'Northcote'
-            })
-        }).then((data) => data.json());
+handleConfirmDelete = async () => {
+    const { storeToDeleteId } = this.state;
+    await fetch(`stores/${storeToDeleteId}`, {
+        method: 'DELETE',
+    });
+    this.closeDeleteModal();
+    this.populateStoresData();
+};
 
-        this.setState({ stores: data, loading: false });
-
-        this.populateStoresData();
-    }
-////Edit data 
-//    async editStore(store) {
-//        try {
-//            const response = await fetch(`stores/${store.id}`, {
-//                method: "PUT",
-//                headers: { "Content-Type": "application/json" },
-//                body: JSON.stringify({
-//                    name: "New",
-//                    address: "Mel"
-//                })
-//            });
-//            if (!response.ok) throw new Error(`response status is ${response.status}`);
-//            await this.populateStoresData();
-//        } catch (err) {
-//            console.error(err);
-//        }
-//    }
-
-//    //DELETE data
-
-//    async deleteStore(storeId) {
-//    const response = await fetch('stores', {
-//        method: 'DELETE',
-//        headers: { 'Content-Type': 'application/json' },
-//        body: JSON.stringify({ id: storeId })
-//    });
-//    const data = await response.json();
-
-//    this.setState({ stores: data, loading: false });
-//    this.populateStoresData();
-//}
 
       async populateStoresData() {
           const response = await fetch('stores');
@@ -157,4 +180,5 @@ export class StoreTable extends Component {
 
     
 }
+
 

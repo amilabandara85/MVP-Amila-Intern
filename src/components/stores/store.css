@@ -1,10 +1,10 @@
-﻿/* --- In Stores.css --- */
+﻿
 .stores-container {
     padding: 20px;
 }
 
 .new-store-btn {
-    /* Blue background from the image */
+   
     background-color: #007bff;
     color: white;
     border: none;
@@ -16,7 +16,7 @@
 }
 
 .home-btn {
-    /* Blue background from the image */
+   
     background-color: #08fc96;
     color: white;
     border: none;
@@ -42,7 +42,7 @@
     }
 
 .edit-btn {
-    /* Yellow background from the image */
+    
    
     background-color: #ffc107;
     color: white;
@@ -51,8 +51,17 @@
     cursor: pointer;
 }
 
+.btn-cancel{
+
+  background-color: black;
+    color: white;
+    border: none;
+    padding: 4px 8px;
+    cursor: pointer;
+}
+
 .delete-btn {
-    /* Red background from the image */
+    
     background-color: #dc3545;
     color: white;
     border: none;
@@ -66,11 +75,12 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent black overlay */
+  background-color: rgba(0, 0, 0, 0.5); 
   display: flex;
   justify-content: center;
   align-items: center;
-  z-index: 1000; /* Ensure modal is on top of other content */
+  z-index: 1000; 
+  
 }
 
 .modal-content {
@@ -79,25 +89,29 @@
   border-radius: 8px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
   width: 90%;
-  max-width: 500px; /* Adjust as needed */
+  max-width: 500px; 
+  text-align: left;
 }
 
 .modal-content h2 {
   font-size: 1.5rem;
   margin-bottom: 20px;
   color: #333;
+  
 }
 
 .form-group {
   margin-bottom: 20px;
+  
 }
 
 .form-group label {
   display: block;
   margin-bottom: 8px;
+  text-align: left;
   font-weight: bold;
   color: #555;
-  text-transform: uppercase; /* As seen in the image */
+  text-transform: uppercase; 
   font-size: 0.8em;
 }
 
@@ -111,8 +125,8 @@
 
 .modal-actions {
   display: flex;
-  justify-content: flex-end; /* Align buttons to the right */
-  gap: 10px; /* Space between buttons */
+  justify-content: flex-end; 
+  gap: 10px; 
   margin-top: 30px;
 }
 
@@ -126,11 +140,62 @@
 }
 
 .cancel-btn {
-  background-color: #6c757d; /* Gray for cancel */
+  background-color: black; 
   color: white;
 }
 
 .create-btn {
-  background-color: #28a745; /* Green for create */
+  background-color: #28a745; 
   color: white;
+}
+
+.modal-actions .btn-delete {
+    background-color: #dc3545; 
+    color: white;
+}
+
+.modal-actions .btn-delete:hover {
+    background-color: #c82333;
+}
+
+.modal-content p {
+    text-align: center;
+    font-size: 1.2em;
+    margin: 20px 0;
+    color: #333;
+}
+
+.modal-backdrop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.6);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.modal-content {
+    background: white;
+    padding: 25px 35px;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+    width: 90%;
+    max-width: 500px;
+    animation: fadeIn 0.3s ease-out;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }

@@ -6,6 +6,10 @@ import './App.css';
 import { Layout } from './Layout';
 import { NavMenu } from './components/navmenu/NavMenu';
 import { StoreTable } from './components/stores/StoreTable';
+import DeleteStore from './components/stores/DeleteStore';
+import EditStore from './components/stores/EditStore';
+import AddStore from './components/stores/AddStore';
+
 
 function App() {
     const [menuOpen, setMenuOpen] = useState(false);
@@ -20,7 +24,7 @@ function App() {
         <nav className="navbar">
         <div className="navbar-brand"><Link to="/NavMenu">Amila Onboarding</Link></div>
         <ul className="navbar-nav">
-        {/* Notice the active link text is changed to "Stores" for this view */}
+       
         <li><a href="#">Customers</a></li>
         <li><a href="#">Products</a></li>
         <li><Link to="/StoreTable">Stores</Link></li>
@@ -29,11 +33,10 @@ function App() {
     </nav>
 
         <Routes>
-        <Route path="/StoreTable" element={<StoreTable/> }/>
-       </Routes>
 
-            
-     {/* <StoreTable />*/}
+        <Route path="/StoreTable" element={<StoreTable /> }/>
+
+       </Routes>
 
         </div>
         
