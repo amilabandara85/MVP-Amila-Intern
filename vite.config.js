@@ -56,7 +56,23 @@ export default defineConfig({
             '^/stores': {
                 target,
                 secure: false
+            },
+
+            '^/customers': {
+                target,
+                secure: false
+            },
+
+            '^/products': {
+                target,
+                secure: false
+            },
+
+            '^/saless': {
+                target,
+                secure: false
             }
+            
         },
         port: parseInt(env.DEV_SERVER_PORT || '55676'),
         https: {

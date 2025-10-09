@@ -9,6 +9,11 @@
     <BuildOutputFolder>$(MSBuildProjectDirectory)\dist</BuildOutputFolder>
   </PropertyGroup>
   <ItemGroup>
-    <Folder Include="src\components\images\" />
+    <Folder Include="src\assets\images\" />
   </ItemGroup>
+  <ProjectExtensions>
+    <VisualStudio>
+      <UserProperties my-project_4package-lock_1json__JsonSchema="https://cdn.sdf.com/schemas/sdf-schema-1.3.json" />
+    </VisualStudio>
+  </ProjectExtensions>
 </Project>
